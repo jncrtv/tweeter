@@ -27,6 +27,11 @@
   
 }
 
+.new-tweet button:hover {
+  color: honeydew;
+  box-shadow: 5px 5px #545149;
+}
+
 .new-tweet textarea {
   border: transparent;
   height: 1em;
