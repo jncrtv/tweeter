@@ -6,14 +6,22 @@
 
 
 $(document).ready(function () {
+  $(".error-message").hide();
 
   const renderTweets = function(tweets) {
   // loops through tweets
   // calls createTweetElement for each tweet
   // takes return value and appends it to the tweets container
     for (let tweet in tweets) {
-      $(".container").append(createTweetElement(tweets, tweet));
+      $(".container").prepend(createTweetElement(tweets, tweet));
     }
+  }
+
+  //XSS escape function
+  const escape =  function(str) {
+    let div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
   }
 
   const createTweetElement = function(tweetsObj, tweet) {
@@ -24,33 +32,46 @@ $(document).ready(function () {
           <h3 class="tweeter-handle">${tweetsObj[tweet].user.handle}</h3>
         </header>
         <section>
-          <p>${tweetsObj[tweet].content.text}</p>
+          <p>${escape(tweetsObj[tweet].content.text)}</p>
         </section>
         <footer>
           <h4>${tweetsObj[tweet].created_at} days</h4>
         </footer>
     </article>`);
     
-    
     return $tweet;
   }
 
-  
-
   $("#submit-tweet").on('submit', function(event) {
+    
+    event.preventDefault();  //prevents request from loading /tweets
+    
+    let tweetContent = $(this).find("#tweet-text").val()  //accessing value in text area
+    let tweetLength = tweetContent.length;
+    
+
+    //execute ajax POST method if char limit is met
+    if (tweetLength < 141 && tweetLength > 0) {
+      $(".container").empty();
+      $(".error-message").hide();
   
-    event.preventDefault();
-
-    $(".container").empty();
-
-    $.ajax({url: '/tweets', method: 'POST', data: $(this).serialize()})
-    .then(function() {
+      $.ajax({url: '/tweets', method: 'POST', data: $(this).serialize()}) //
+      .then(function() {
+        console.log(this)
+        console.log('Success... Tweet Submitted');
+        loadTweets();
+  
+      })
+    } else if (tweetLength === 0) {
       
-      console.log('Success... Tweet Submitted');
-      loadTweets();
-
-    })
-  })
+      $(".error-message").html('You forgot to say something. Share you thoughts #kthxbye').slideDown();
+      
+    } else {
+      
+      $(".error-message").html('Plz respect our 140 character limit. #kthxbye').slideDown();
+      
+    }
+  });
 
   const loadTweets = function() {
     $.ajax({url: '/tweets', method: 'GET', dataType: 'JSON'})
@@ -67,8 +88,6 @@ $(document).ready(function () {
 
 
 
-
-
 // $("#submit-tweet").on('submit', function(event) {
 
 //   event.preventDefault();
@@ -80,8 +99,7 @@ $(document).ready(function () {
 //     console.log('Success... Rendered Tweets')
 
 //   })
-// })
-
+// }){/* <script>alert('hello!');</script> */}
 
 
   // $.ajax({url: '', method: '', dataType: ""}).then(function(response) {
