@@ -2,8 +2,7 @@
  * Client-side JS logic goes here
  * jQuery is already loaded
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
- */
-
+ */ 
 
 $(document).ready(function () {
   $(".error-message").hide();
@@ -35,10 +34,13 @@ $(document).ready(function () {
           <p>${escape(tweetsObj[tweet].content.text)}</p>
         </section>
         <footer>
-          <h4>${tweetsObj[tweet].created_at} days</h4>
+          <h4>${moment(tweetsObj[tweet].created_at).startOf('hour').fromNow()}</h4>
         </footer>
     </article>`);
     
+    // <h4>${moment().endOf('day').fromNow()} days</h4>
+    //<h4>${tweetsObj[tweet].created_at} days</h4>
+
     return $tweet;
   }
 
@@ -64,7 +66,7 @@ $(document).ready(function () {
       })
     } else if (tweetLength === 0) {
       
-      $(".error-message").html('You forgot to say something. Share you thoughts #kthxbye').slideDown();
+      $(".error-message").html('You forgot to say something. Share your thoughts #kthxbye').slideDown();
       
     } else {
       

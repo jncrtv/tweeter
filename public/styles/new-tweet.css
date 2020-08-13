@@ -28,20 +28,20 @@
 }
 
 .new-tweet button:hover {
-  color: honeydew;
+  color: #D2F1E4;
   box-shadow: 5px 5px #545149;
 }
 
 .new-tweet textarea {
   border: transparent;
-  height: 1em;
+  height: 1.2em;
   width:100%;
-  font-size: 1em;
+  font-size: 0.8em;
   background-color: #f4f1ec;
   margin:0px;
-  padding:0px;
+  padding:20px;
 }
 
-.counter {
+.counter { 
   font-family: 'Bungee', cursive;
 }

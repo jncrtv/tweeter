@@ -1,0 +1,33 @@
+
+@media only screen and (min-width: 900px) {
+  nav {
+    background-color: #4056A1;
+    color:#FFFFFF;
+   }
+
+   body {
+    justify-content: flex-end;
+    padding-top: 50px;
+   }
+
+   .profile-section {
+     margin-right:10vm;
+     margin-left: 10vm;
+     width: 38%;
+   }
+   .new-tweet {
+     margin:0;
+     width: 60%;
+   }
+
+   .container {
+    margin:0;
+    width:60%;
+   }
+
+   .error-message {
+     margin:0;
+     width:60%;
+   }
+}
+
