@@ -35,6 +35,11 @@ $(document).ready(function () {
         </section>
         <footer>
           <h4>${moment(tweetsObj[tweet].created_at).startOf('hour').fromNow()}</h4>
+          <div class="icons">
+            <img src="/images/retweet.png"/>
+            <img src="/images/retweet.png"/>
+            <img src="/images/retweet.png"/>
+          </div>
         </footer>
     </article>`);
     
